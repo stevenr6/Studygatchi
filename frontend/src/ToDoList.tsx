@@ -33,8 +33,7 @@ export default function ToDoList() {
     setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
   };
 
-  // Issue #99: allow users to remove a task without receiving a reward.
-  // A confirmation modal helps prevent accidental deletion.
+  // Issue #99: allow users to remove a task without receiving a reward and add a confirmation popup
   const confirmDelete = () => {
     if (!taskToDelete) return;
 
@@ -101,31 +100,22 @@ export default function ToDoList() {
       </ul>
 
       {taskToDelete && (
-        <div className="delete-modal-overlay">
-          <div
-            className="delete-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="delete-modal-title"
-          >
-            <h2 id="delete-modal-title">Delete task?</h2>
+        <div className="delete-popup-overlay">
+          <div className="delete-popup" role="dialog" aria-modal="true" aria-labelledby="delete-popup-title">
+            <h2 id="delete-popup-title">
+              Delete task?
+            </h2>
 
             <p>
               Are you sure you want to delete <strong>{taskToDelete}</strong>?
             </p>
 
-            <div className="delete-modal-buttons">
-              <button
-                className="delete-modal-cancel"
-                onClick={() => setTaskToDelete(null)}
-              >
+            <div className="delete-popup-buttons">
+              <button className="delete-popup-cancel" onClick={() => setTaskToDelete(null)}>
                 Cancel
               </button>
 
-              <button
-                className="delete-modal-confirm"
-                onClick={confirmDelete}
-              >
+              <button className="delete-popup-confirm" onClick={confirmDelete}>
                 Delete
               </button>
             </div>
